@@ -79,7 +79,6 @@ btnHold.addEventListener('click', function () {
     scores[activePlayer] += currentScore;
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
-    console.log(scores);
 
     if (scores[activePlayer] >= 10) {
       // if any of the scores(active player) >= 100, end game
