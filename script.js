@@ -5,20 +5,40 @@ const score0El = document.querySelector('#score--0');
 const score1El = document.getElementById('score--1');
 const player0El = document.querySelector('.player--0');
 const player1El = document.querySelector('.player--1');
+const current0El = document.getElementById('current--0');
+const current1El = document.getElementById('current--1');
 const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
 // Starting Conditions
-let playing = true;
-diceEl.classList.add('hidden');
-score0El.textContent = 0;
-score1El.textContent = 0;
+let playing, currentScore, activePlayer, scores;
 
-let currentScore = 0;
-let activePlayer = 0;
-const scores = [0, 0];
+const init = function () {
+  playing = true;
+  currentScore = 0;
+  activePlayer = 0;
+  scores = [0, 0];
+
+  diceEl.classList.add('hidden');
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+
+  // reset current scores
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+
+  // remove winner class
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+
+  // add active player class
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--active');
+};
+
+init();
 
 // Switch player
 const switchPlayer = function () {
@@ -80,29 +100,4 @@ btnHold.addEventListener('click', function () {
 
 // Reset the game
 
-btnNew.addEventListener('click', function () {
-  playing = true;
-  currentScore = 0;
-  activePlayer = 0;
-  scores[0] = 0;
-  scores[1] = 0;
-
-  // show dice
-  diceEl.classList.remove('hidden');
-
-  // reset scores on global-board
-  document.querySelector('#score--0').textContent = 0;
-  document.querySelector('#score--1').textContent = 0;
-
-  // reset current scores
-  document.getElementById('current--0').textContent = 0;
-  document.getElementById('current--1').textContent = 0;
-
-  // remove winner class
-  document.querySelector('.player--0').classList.remove('player--winner');
-  document.querySelector('.player--1').classList.remove('player--winner');
-
-  // add active player class
-  player0El.classList.add('player--active');
-  player1El.classList.remove('player--active');
-});
+btnNew.addEventListener('click', init);
